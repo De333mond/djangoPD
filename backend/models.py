@@ -230,7 +230,8 @@ class TblAup(models.Model):
 
 class SprSpecialization(models.Model):
     d_specialozation_type = models.ForeignKey(DSpecialozationType, models.DO_NOTHING)
-    title = models.CharField(max_length=255, blank=True, null=True)
+    title = models.CharField(max_length=255, blank=True, null=True, unique=True)
+    additional_competencies = models.ManyToManyField('SprAdditionalCompetency', verbose_name="Дополнительные компетенции")
 
     def __str__(self):
         return f"[{self.d_specialozation_type.title}] {self.title}"
@@ -249,3 +250,17 @@ class SprVolumeDegreeZet(models.Model):
     id_volume_deg = models.AutoField(primary_key=True)
     program_code = models.ForeignKey(SprOkco, models.DO_NOTHING, db_column='program_code')
     id_standard = models.IntegerField()
+
+
+class SprAdditionalCompetency(models.Model):
+    code = models.ForeignKey(DCompetencyCode, default=2, on_delete=models.CASCADE)
+    number = models.FloatField(max_length=2)
+    title = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return f"[{self.code.title}-{self.number}] {self.title}"
+
+    class Meta:
+        verbose_name = "Дополнительная компетенция"
+        verbose_name_plural = "Дополнительные компетенции"
+

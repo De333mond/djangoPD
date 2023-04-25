@@ -23,10 +23,19 @@ class CompDiscipline(admin.ModelAdmin):
 class FgosAdmin(admin.ModelAdmin):
     list_display = [f.name for f in SprFgosVo._meta.fields]
 
+
+@admin.register(SprSpecialization)
+class SprSpecializationAdmin(admin.ModelAdmin):
+    list_display = [f.name for f in SprSpecialization._meta.fields]
+    list_filter = ['d_specialozation_type']
+
+
+
 admin.site.register(SprCompetency)
-admin.site.register(SprSpecialization)
+# admin.site.register(SprSpecialization)
 admin.site.register(DCompetencyCode)
 admin.site.register(DSpecialozationType)
 admin.site.register(DTypeStandard)
 admin.site.register(DGeneration)
 admin.site.register(TblRealizedOkso)
+admin.site.register(SprAdditionalCompetency)
